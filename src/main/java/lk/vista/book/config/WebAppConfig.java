@@ -4,11 +4,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Created by Sahan Nimesha on 2022 - Jan
- * In IntelliJ IDEA
- */
-
 @Configuration
 public class WebAppConfig {
 
