@@ -7,10 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-/**
- * Created by Sahan Nimesha on 2022 - Jan
- * In IntelliJ IDEA
- */
 
 @RestControllerAdvice
 public class AppWideExceptionHandler {
