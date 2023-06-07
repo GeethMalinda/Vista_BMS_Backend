@@ -2,21 +2,22 @@ package lk.vista.book.entity;
 
 import lk.vista.book.enums.BookStatus;
 import lk.vista.book.enums.BookType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "book")
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BookDetail {
+
     @Id
-    @Column(name = "isbn")
+    @Column(name = "isbn", nullable = false, unique = true)
     private String isbn;
 
     @Column(name = "name")
@@ -35,11 +36,10 @@ public class BookDetail {
     private String language;
 
     @Column(name = "pages")
-    private String pages;
+    private int pages;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "publication_date")
+    private LocalDate publicationDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "book_status")
@@ -49,5 +49,4 @@ public class BookDetail {
     @Column(name = "book_type")
     private BookType bookType;
 
-    // getters and setters
 }
