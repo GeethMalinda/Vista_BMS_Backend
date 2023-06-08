@@ -1,8 +1,9 @@
 package lk.vista.book.controller;
 
-import lk.vista.book.entity.BookDetail;
+import lk.vista.book.dto.BookDetailDTO;
 import lk.vista.book.service.BookDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,27 +17,32 @@ public class BookDetailController {
     private BookDetailService bookDetailService;
 
     @GetMapping
-    public List<BookDetail> getAllBooks() {
-        return bookDetailService.getAllBooks();
+    public ResponseEntity<List<BookDetailDTO>> getAllBooks() {
+        List<BookDetailDTO> bookDetailDTOs = bookDetailService.getAllBooks();
+        return ResponseEntity.ok(bookDetailDTOs);
     }
 
     @GetMapping("/{isbn}")
-    public BookDetail getBookByIsbn(@PathVariable String isbn) {
-        return bookDetailService.getBookByIsbn(isbn);
+    public ResponseEntity<BookDetailDTO> getBookByIsbn(@PathVariable String isbn) {
+        BookDetailDTO bookDetailDTO = bookDetailService.getBookByIsbn(isbn);
+        return ResponseEntity.ok(bookDetailDTO);
     }
 
     @PostMapping
-    public BookDetail createBook(@RequestBody BookDetail bookDetail) {
-        return bookDetailService.createBook(bookDetail);
+    public ResponseEntity<BookDetailDTO> createBook(@RequestBody BookDetailDTO bookDetailDTO) {
+        BookDetailDTO createdBookDetailDTO = bookDetailService.saveBook(bookDetailDTO);
+        return ResponseEntity.ok(createdBookDetailDTO);
     }
 
     @PutMapping
-    public BookDetail updateBook(@RequestBody BookDetail bookDetail) {
-        return bookDetailService.updateBook(bookDetail);
+    public ResponseEntity<BookDetailDTO> updateBook(@RequestBody BookDetailDTO bookDetailDTO) {
+        BookDetailDTO updatedBookDetailDTO = bookDetailService.updateBook(bookDetailDTO);
+        return ResponseEntity.ok(updatedBookDetailDTO);
     }
 
     @DeleteMapping("/{isbn}")
-    public void deleteBook(@PathVariable String isbn) {
+    public ResponseEntity<Void> deleteBook(@PathVariable String isbn) {
         bookDetailService.deleteBook(isbn);
+        return ResponseEntity.ok().build();
     }
 }

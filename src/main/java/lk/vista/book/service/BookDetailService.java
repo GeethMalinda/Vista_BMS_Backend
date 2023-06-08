@@ -2,15 +2,16 @@ package lk.vista.book.service;
 
 import lk.vista.book.dto.BookDetailDTO;
 import java.util.List;
-import java.util.Optional;
 
 public interface BookDetailService {
 
-    List<BookDetailDTO> findAllBooks();
+    List<BookDetailDTO> getAllBooks();
 
-    Optional<BookDetailDTO> findBookByIsbn(String isbn);
+    BookDetailDTO getBookByIsbn(String isbn);
 
-    BookDetailDTO saveBook(BookDetailDTO bookDetailDto);
+    BookDetailDTO saveBook(BookDetailDTO bookDetailDTO);
+
+    BookDetailDTO updateBook(BookDetailDTO bookDetailDTO);
 
     void deleteBook(String isbn);
 }
