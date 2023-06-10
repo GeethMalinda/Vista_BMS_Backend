@@ -1,5 +1,5 @@
 package lk.vista.book.enums;
 
-public enum BookType {
+public enum BookFormat {
     AUDIO,EBOOK,BOOK
 }

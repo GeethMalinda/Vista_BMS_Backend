@@ -1,7 +1,10 @@
 package lk.vista.book.dto;
 
 import lk.vista.book.enums.BookStatus;
-import lk.vista.book.enums.BookType;
+import lk.vista.book.enums.BookFormat;
+import lk.vista.book.enums.BookLanguage;
+import lk.vista.book.enums.BookCategory;
+
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,11 +19,13 @@ public class BookDetailDTO {
 
     private String isbn;
     private String name;
+    private String imageURL;
     private String author;
+    private BookCategory category;
     private String publisher;
-    private String language;
+    private BookLanguage language;
     private int pages;
     private LocalDate publicationDate;
-    private BookStatus bookStatus;
-    private BookType bookType;
+    private BookStatus status;
+    private BookFormat format;
 }

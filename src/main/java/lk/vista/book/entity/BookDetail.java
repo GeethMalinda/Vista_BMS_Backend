@@ -1,7 +1,9 @@
 package lk.vista.book.entity;
 
 import lk.vista.book.enums.BookStatus;
-import lk.vista.book.enums.BookType;
+import lk.vista.book.enums.BookFormat;
+import lk.vista.book.enums.BookLanguage;
+import lk.vista.book.enums.BookCategory;
 
 import lombok.*;
 
@@ -23,17 +25,22 @@ public class BookDetail {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "img_url")
+    private String imageURL;
+
     @Column(name = "author")
     private String author;
 
-    @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category")
+    private BookCategory category;
 
     @Column(name = "publisher")
     private String publisher;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "language")
-    private String language;
+    private BookLanguage language;
 
     @Column(name = "pages")
     private int pages;
@@ -42,11 +49,10 @@ public class BookDetail {
     private LocalDate publicationDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "book_status")
-    private BookStatus bookStatus;
+    @Column(name = "status")
+    private BookStatus status;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "book_type")
-    private BookType bookType;
-
+    @Column(name = "format")
+    private BookFormat format;
 }
