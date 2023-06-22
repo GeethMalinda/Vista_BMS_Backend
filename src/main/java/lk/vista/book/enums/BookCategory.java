@@ -1,7 +1,10 @@
 package lk.vista.book.enums;
 
 public enum BookCategory {
-    FICTION,
-    NONFICTION,
-    OTHER
+    CATEGORY_FICTION,
+    CATEGORY_NONFICTION,
+    CATEGORY_KIDS,
+    CATEGORY_SCIENCE_TECHNOLOGY,
+    CATEGORY_GRAPHIC_NOVELS_COMICS,
+    CATEGORY_POETRY
 }

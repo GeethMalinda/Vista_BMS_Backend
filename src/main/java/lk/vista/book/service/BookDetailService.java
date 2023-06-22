@@ -14,4 +14,6 @@ public interface BookDetailService {
     BookDetailDTO updateBook(BookDetailDTO bookDetailDTO);
 
     void deleteBook(String isbn);
+
+    List<BookDetailDTO> getBooksByCategory(String category);
 }

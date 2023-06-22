@@ -36,6 +36,14 @@ public class BookDetailServiceImpl implements BookDetailService {
     }
 
     @Override
+    public List<BookDetailDTO> getBooksByCategory(String category) {
+        return bookDetailRepository.findByCategory(category)
+                .stream()
+                .map(bookDetail -> modelMapper.map(bookDetail, BookDetailDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public BookDetailDTO saveBook(BookDetailDTO bookDetailDTO) {
         BookDetail bookDetail = modelMapper.map(bookDetailDTO, BookDetail.class);
         BookDetail savedBookDetail = bookDetailRepository.save(bookDetail);

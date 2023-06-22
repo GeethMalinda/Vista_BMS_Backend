@@ -27,6 +27,11 @@ public class BookDetailController {
         BookDetailDTO bookDetailDTO = bookDetailService.getBookByIsbn(isbn);
         return ResponseEntity.ok(bookDetailDTO);
     }
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<BookDetailDTO>> getBooksByCategory(@PathVariable String category) {
+        List<BookDetailDTO> bookDetailDTOs = bookDetailService.getBooksByCategory(category);
+        return ResponseEntity.ok(bookDetailDTOs);
+    }
 
     @PostMapping
     public ResponseEntity<BookDetailDTO> createBook(@RequestBody BookDetailDTO bookDetailDTO) {
