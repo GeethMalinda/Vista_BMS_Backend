@@ -7,6 +7,7 @@ import lk.vista.book.enums.BookCategory;
 
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
@@ -28,4 +29,8 @@ public class BookDetailDTO {
     private LocalDate publicationDate;
     private BookStatus status;
     private BookFormat format;
+    private BigDecimal price;
+    private String description;
+    private BigDecimal discount;
+
 }

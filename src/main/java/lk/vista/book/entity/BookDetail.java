@@ -8,6 +8,7 @@ import lk.vista.book.enums.BookCategory;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -55,4 +56,13 @@ public class BookDetail {
     @Enumerated(EnumType.STRING)
     @Column(name = "format")
     private BookFormat format;
+
+    @Column(name = "price")
+    private BigDecimal price;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "discount")
+    private BigDecimal discount;
 }
