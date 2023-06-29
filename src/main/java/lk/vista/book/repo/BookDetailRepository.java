@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface BookDetailRepository extends JpaRepository<BookDetail, String> {
 
-    List<BookDetail> findByCategory(String category);
+    List<BookDetail> findByCategory(BookCategory category);
 
 }

@@ -32,5 +32,6 @@ public class BookDetailDTO {
     private BigDecimal price;
     private String description;
     private BigDecimal discount;
+    private double rate;
 
 }

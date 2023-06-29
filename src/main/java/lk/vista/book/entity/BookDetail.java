@@ -65,4 +65,14 @@ public class BookDetail {
 
     @Column(name = "discount")
     private BigDecimal discount;
+
+    @Column(name = "average_rating")
+    private double averageRating;
+
+    @Column(name = "rating_count")
+    private int ratingCount;
+
+    @Column(name = "rating_sum")
+    private double ratingSum;
+
 }

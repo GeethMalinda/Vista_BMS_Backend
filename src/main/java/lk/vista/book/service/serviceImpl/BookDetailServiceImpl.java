@@ -2,6 +2,7 @@ package lk.vista.book.service.serviceImpl;
 
 import lk.vista.book.dto.BookDetailDTO;
 import lk.vista.book.entity.BookDetail;
+import lk.vista.book.enums.BookCategory;
 import lk.vista.book.repo.BookDetailRepository;
 import lk.vista.book.service.BookDetailService;
 import org.modelmapper.ModelMapper;
@@ -37,10 +38,20 @@ public class BookDetailServiceImpl implements BookDetailService {
 
     @Override
     public List<BookDetailDTO> getBooksByCategory(String category) {
-        return bookDetailRepository.findByCategory(category)
+        BookCategory bookCategory;
+
+        try {
+            bookCategory = BookCategory.valueOf(category.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid category: " + category);
+        }
+
+        List<BookDetailDTO> bookDetailDTOS = bookDetailRepository.findByCategory(bookCategory)
                 .stream()
                 .map(bookDetail -> modelMapper.map(bookDetail, BookDetailDTO.class))
                 .collect(Collectors.toList());
+
+        return bookDetailDTOS;
     }
 
     @Override
@@ -52,10 +63,23 @@ public class BookDetailServiceImpl implements BookDetailService {
 
     @Override
     public BookDetailDTO updateBook(BookDetailDTO bookDetailDTO) {
-        BookDetail bookDetail = modelMapper.map(bookDetailDTO, BookDetail.class);
-        BookDetail updatedBookDetail = bookDetailRepository.save(bookDetail);
-        return modelMapper.map(updatedBookDetail, BookDetailDTO.class);
+        BookDetail existingBookDetail = bookDetailRepository.findById(bookDetailDTO.getIsbn())
+                .orElseThrow(() -> new IllegalArgumentException("Book not found with this isbn: " + bookDetailDTO.getIsbn()));
+
+        double newRating = bookDetailDTO.getRate();
+        existingBookDetail.setRatingCount(existingBookDetail.getRatingCount() + 1);
+        existingBookDetail.setRatingSum(existingBookDetail.getRatingSum() + newRating);
+        existingBookDetail.setAverageRating(existingBookDetail.getRatingSum() / existingBookDetail.getRatingCount());
+
+        modelMapper.typeMap(BookDetailDTO.class, BookDetail.class).
+                addMappings(mapper -> mapper.skip(BookDetail::setIsbn)).map(bookDetailDTO, existingBookDetail);
+
+        BookDetail updatedBookDetail = bookDetailRepository.save(existingBookDetail);
+        BookDetailDTO updatedBookDetailDTO = modelMapper.map(updatedBookDetail, BookDetailDTO.class);
+
+        return updatedBookDetailDTO;
     }
+
 
     @Override
     public void deleteBook(String isbn) {
