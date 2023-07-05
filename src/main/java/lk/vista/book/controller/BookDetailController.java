@@ -1,10 +1,12 @@
 package lk.vista.book.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lk.vista.book.dto.BookDetailDTO;
 import lk.vista.book.service.BookDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,6 +17,12 @@ public class BookDetailController {
 
     @Autowired
     private BookDetailService bookDetailService;
+
+//    @PostMapping("/upload")
+//    public ResponseEntity<BookDetailDTO> uploadBookFile(@RequestParam("file") MultipartFile file, @RequestParam("isbn") String isbn) {
+//        BookDetailDTO bookDetailDTO = bookDetailService.saveBookFile(file, isbn);
+//        return ResponseEntity.ok(bookDetailDTO);
+//    }
 
     @GetMapping
     public ResponseEntity<List<BookDetailDTO>> getAllBooks() {
@@ -33,9 +41,26 @@ public class BookDetailController {
         return ResponseEntity.ok(bookDetailDTOs);
     }
 
+//    @PostMapping
+//    public ResponseEntity<BookDetailDTO> createBook(@RequestBody BookDetailDTO bookDetailDTO ,
+//                                                    @RequestParam("book") MultipartFile book,
+//                                                    @RequestParam("cover") MultipartFile cover) {
+//        BookDetailDTO createdBookDetailDTO = bookDetailService.saveBook(bookDetailDTO);
+//        return ResponseEntity.ok(createdBookDetailDTO);
+//    }
     @PostMapping
-    public ResponseEntity<BookDetailDTO> createBook(@RequestBody BookDetailDTO bookDetailDTO) {
-        BookDetailDTO createdBookDetailDTO = bookDetailService.saveBook(bookDetailDTO);
+    public ResponseEntity<BookDetailDTO> createBook(@RequestParam("bookDetail") String bookDetailStr,
+                                                    @RequestParam("book") MultipartFile book,
+                                                    @RequestParam("cover") MultipartFile cover) {
+        ObjectMapper mapper = new ObjectMapper();
+        BookDetailDTO bookDetailDTO = null;
+        try {
+            bookDetailDTO = mapper.readValue(bookDetailStr, BookDetailDTO.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        BookDetailDTO createdBookDetailDTO = bookDetailService.saveBook(bookDetailDTO, book, cover);
         return ResponseEntity.ok(createdBookDetailDTO);
     }
 

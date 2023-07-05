@@ -1,6 +1,8 @@
 package lk.vista.book.service;
 
 import lk.vista.book.dto.BookDetailDTO;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 public interface BookDetailService {
@@ -9,7 +11,7 @@ public interface BookDetailService {
 
     BookDetailDTO getBookByIsbn(String isbn);
 
-    BookDetailDTO saveBook(BookDetailDTO bookDetailDTO);
+    BookDetailDTO saveBook(BookDetailDTO bookDetailDTO, MultipartFile bookFile, MultipartFile coverFile);
 
     BookDetailDTO updateBook(BookDetailDTO bookDetailDTO);
 

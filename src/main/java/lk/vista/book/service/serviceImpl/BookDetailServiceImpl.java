@@ -8,7 +8,9 @@ import lk.vista.book.service.BookDetailService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,9 +56,24 @@ public class BookDetailServiceImpl implements BookDetailService {
         return bookDetailDTOS;
     }
 
+//    @Override
+//    public BookDetailDTO saveBook(BookDetailDTO bookDetailDTO) {
+//        BookDetail bookDetail = modelMapper.map(bookDetailDTO, BookDetail.class);
+//        BookDetail savedBookDetail = bookDetailRepository.save(bookDetail);
+//        return modelMapper.map(savedBookDetail, BookDetailDTO.class);
+//    }
+
     @Override
-    public BookDetailDTO saveBook(BookDetailDTO bookDetailDTO) {
+    public BookDetailDTO saveBook(BookDetailDTO bookDetailDTO, MultipartFile bookFile, MultipartFile coverFile) {
         BookDetail bookDetail = modelMapper.map(bookDetailDTO, BookDetail.class);
+
+        // Assuming you have setFile and setCover methods in your BookDetail class
+        // You can save your file anywhere you want, this is just a basic example
+//            bookDetail.setBookFile(bookFile.getBytes());
+//            bookDetail.setCoverFile(coverFile.getBytes());
+        System.out.println(bookFile);
+        System.out.println(coverFile);
+
         BookDetail savedBookDetail = bookDetailRepository.save(bookDetail);
         return modelMapper.map(savedBookDetail, BookDetailDTO.class);
     }

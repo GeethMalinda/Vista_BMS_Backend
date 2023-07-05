@@ -67,7 +67,7 @@ public class BookDetail {
     private BigDecimal discount;
 
     @Column(name = "average_rating")
-    private double averageRating;
+    private double averageRating = 0;
 
     @Column(name = "rating_count")
     private int ratingCount;
