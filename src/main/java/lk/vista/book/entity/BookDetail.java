@@ -75,4 +75,12 @@ public class BookDetail {
     @Column(name = "rating_sum")
     private double ratingSum;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ebook_file_id")
+    private FileData ebookFile;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "cover_photo_id")
+    private FileData coverPhoto;
+
 }

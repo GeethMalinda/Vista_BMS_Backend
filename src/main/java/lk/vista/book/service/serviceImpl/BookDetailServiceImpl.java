@@ -2,9 +2,11 @@ package lk.vista.book.service.serviceImpl;
 
 import lk.vista.book.dto.BookDetailDTO;
 import lk.vista.book.entity.BookDetail;
+import lk.vista.book.entity.FileData;
 import lk.vista.book.enums.BookCategory;
 import lk.vista.book.repo.BookDetailRepository;
 import lk.vista.book.service.BookDetailService;
+import lk.vista.book.service.FileDataService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class BookDetailServiceImpl implements BookDetailService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private FileDataService fileDataService;
 
     @Override
     public List<BookDetailDTO> getAllBooks() {
@@ -56,25 +61,22 @@ public class BookDetailServiceImpl implements BookDetailService {
         return bookDetailDTOS;
     }
 
-//    @Override
-//    public BookDetailDTO saveBook(BookDetailDTO bookDetailDTO) {
-//        BookDetail bookDetail = modelMapper.map(bookDetailDTO, BookDetail.class);
-//        BookDetail savedBookDetail = bookDetailRepository.save(bookDetail);
-//        return modelMapper.map(savedBookDetail, BookDetailDTO.class);
-//    }
-
     @Override
-    public BookDetailDTO saveBook(BookDetailDTO bookDetailDTO, MultipartFile bookFile, MultipartFile coverFile) {
-        BookDetail bookDetail = modelMapper.map(bookDetailDTO, BookDetail.class);
+    public BookDetailDTO saveBook(BookDetailDTO bookDetailDTO, MultipartFile bookFile, MultipartFile coverFile) throws IOException {
+        // Save the file data in the database and get the saved entities
+        FileData bookFileData = fileDataService.saveFileData(bookFile);
+        FileData coverFileData = fileDataService.saveFileData(coverFile);
 
-        // Assuming you have setFile and setCover methods in your BookDetail class
-        // You can save your file anywhere you want, this is just a basic example
-//            bookDetail.setBookFile(bookFile.getBytes());
-//            bookDetail.setCoverFile(coverFile.getBytes());
-        System.out.println(bookFile);
-        System.out.println(coverFile);
+        // convert DTO to entity and vice versa
+        BookDetail bookDetail = convertDTOToEntity(bookDetailDTO);
 
+        // set the fileData objects in the bookDetail
+        bookDetail.setEbookFile(bookFileData);
+        bookDetail.setCoverPhoto(coverFileData);
+
+        // save the bookDetail entity
         BookDetail savedBookDetail = bookDetailRepository.save(bookDetail);
+
         return modelMapper.map(savedBookDetail, BookDetailDTO.class);
     }
 
@@ -101,5 +103,9 @@ public class BookDetailServiceImpl implements BookDetailService {
     @Override
     public void deleteBook(String isbn) {
         bookDetailRepository.deleteById(isbn);
+    }
+
+    private BookDetail convertDTOToEntity(BookDetailDTO bookDetailDTO) {
+        return modelMapper.map(bookDetailDTO, BookDetail.class);
     }
 }
