@@ -99,7 +99,6 @@ public class BookDetailServiceImpl implements BookDetailService {
         return updatedBookDetailDTO;
     }
 
-
     @Override
     public void deleteBook(String isbn) {
         bookDetailRepository.deleteById(isbn);

@@ -13,7 +13,7 @@ import java.io.IOException;
 @Service
 public class FileDataServiceImpl  implements FileDataService {
 
-    private final String FOLDER_PATH="src/main/java/lk/vista/book/file";
+    private final String FOLDER_PATH="E:\\Vista-Book-Backend\\src\\main\\java\\lk\\vista\\book\\file";
 
     @Autowired
     private FileDataRepository fileDataRepository;

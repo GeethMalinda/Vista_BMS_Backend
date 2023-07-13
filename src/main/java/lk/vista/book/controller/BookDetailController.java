@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -51,7 +52,7 @@ public class BookDetailController {
     @PostMapping
     public ResponseEntity<BookDetailDTO> createBook(@RequestParam("bookDetail") String bookDetailStr,
                                                     @RequestParam("book") MultipartFile book,
-                                                    @RequestParam("cover") MultipartFile cover) {
+                                                    @RequestParam("cover") MultipartFile cover) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         BookDetailDTO bookDetailDTO = null;
         try {

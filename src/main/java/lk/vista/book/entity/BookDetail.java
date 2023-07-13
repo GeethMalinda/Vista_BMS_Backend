@@ -34,14 +34,14 @@ public class BookDetail {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
-    private BookCategory category;
+    private BookCategory category = BookCategory.CATEGORY_FICTION;
 
     @Column(name = "publisher")
     private String publisher;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "language")
-    private BookLanguage language;
+    private BookLanguage language = BookLanguage.SINHALA;
 
     @Column(name = "pages")
     private int pages;
@@ -51,11 +51,11 @@ public class BookDetail {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private BookStatus status;
+    private BookStatus status = BookStatus.UNAVAILABLE;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "format")
-    private BookFormat format;
+    private BookFormat format = BookFormat.BOOK;
 
     @Column(name = "price")
     private BigDecimal price;
