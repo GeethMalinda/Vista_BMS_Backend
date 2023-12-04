@@ -2,8 +2,7 @@ package lk.vista.book.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -13,7 +12,7 @@ import java.time.LocalDate;
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -25,5 +24,7 @@ public class Review {
     private BookDetail book;
 
     private int rating;
-    private String reviewText;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "review_id")
+    private List<ReviewText> reviewTexts;
 }

@@ -28,12 +28,12 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity<ReviewDto> saveReview(@RequestBody ReviewDTO reviewDTO) {
+    public ResponseEntity<ReviewDto> saveReview(@RequestBody ReviewDto reviewDTO) {
         return ResponseEntity.ok(reviewService.saveReview(reviewDTO));
     }
 
     @PutMapping("/{reviewId}")
-    public ResponseEntity<ReviewDto> updateReview(@PathVariable Long reviewId, @RequestBody ReviewDTO reviewDTO) {
+    public ResponseEntity<ReviewDto> updateReview(@PathVariable Long reviewId, @RequestBody ReviewDto reviewDTO) {
         return ResponseEntity.ok(reviewService.updateReview(reviewId, reviewDTO));
     }
 

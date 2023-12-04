@@ -19,12 +19,6 @@ public class BookDetailController {
     @Autowired
     private BookDetailService bookDetailService;
 
-//    @PostMapping("/upload")
-//    public ResponseEntity<BookDetailDTO> uploadBookFile(@RequestParam("file") MultipartFile file, @RequestParam("isbn") String isbn) {
-//        BookDetailDTO bookDetailDTO = bookDetailService.saveBookFile(file, isbn);
-//        return ResponseEntity.ok(bookDetailDTO);
-//    }
-
     @GetMapping
     public ResponseEntity<List<BookDetailDTO>> getAllBooks() {
         List<BookDetailDTO> bookDetailDTOs = bookDetailService.getAllBooks();
@@ -36,19 +30,14 @@ public class BookDetailController {
         BookDetailDTO bookDetailDTO = bookDetailService.getBookByIsbn(isbn);
         return ResponseEntity.ok(bookDetailDTO);
     }
+
     @GetMapping("/category/{category}")
     public ResponseEntity<List<BookDetailDTO>> getBooksByCategory(@PathVariable String category) {
         List<BookDetailDTO> bookDetailDTOs = bookDetailService.getBooksByCategory(category);
         return ResponseEntity.ok(bookDetailDTOs);
     }
 
-//    @PostMapping
-//    public ResponseEntity<BookDetailDTO> createBook(@RequestBody BookDetailDTO bookDetailDTO ,
-//                                                    @RequestParam("book") MultipartFile book,
-//                                                    @RequestParam("cover") MultipartFile cover) {
-//        BookDetailDTO createdBookDetailDTO = bookDetailService.saveBook(bookDetailDTO);
-//        return ResponseEntity.ok(createdBookDetailDTO);
-//    }
+
     @PostMapping
     public ResponseEntity<BookDetailDTO> createBook(@RequestParam("bookDetail") String bookDetailStr,
                                                     @RequestParam("book") MultipartFile book,
