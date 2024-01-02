@@ -1,4 +1,4 @@
-package lk.vista.book.config;
+package lk.vista.book.configuration;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
