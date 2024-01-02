@@ -43,9 +43,10 @@ public class SeasonalOfferServiceImpl implements SeasonalOfferService {
     @Override
     public List<SeasonalOfferDTO> getCurrentOffers() {
         LocalDate today = LocalDate.now();
-        return seasonalOfferRepository.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(today)
+        return seasonalOfferRepository.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(today, today)
                 .stream()
                 .map(offer -> modelMapper.map(offer, SeasonalOfferDTO.class))
                 .collect(Collectors.toList());
     }
+
 }

@@ -1,9 +1,6 @@
 package lk.vista.book.util;
 
-/**
- * Created by Sahan Nimesha on 2022 - Jan
- * In IntelliJ IDEA
- */
+
 public class StandardResponse {
     private int code;
     private String message;
